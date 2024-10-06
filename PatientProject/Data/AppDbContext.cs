@@ -10,5 +10,9 @@ namespace PatientProject.Data
             
         }
         public DbSet<Patient> patients { get; set; }
+
+     
+        
+
     }
 }

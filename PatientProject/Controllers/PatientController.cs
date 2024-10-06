@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PatientProject.CustomActionFilters;
 using PatientProject.Models;
 using PatientProject.Models.Dtos;
 using PatientProject.Repository;
@@ -64,6 +65,7 @@ namespace PatientProject.Controllers
             return Ok(patientDto);
         }
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> AddPatient(AddPatientDto addPatientDto)
         {
             var patientDmainModel = mapper.Map<Patient>(addPatientDto);
@@ -94,6 +96,7 @@ namespace PatientProject.Controllers
         }
         [HttpPut]
         [Route("{id:int}")]
+        [ValidateModel]
         public async Task<IActionResult> UpdatePatient(int id,UpdatePatientDto updatePatientDto)
         {
             // maping to Domain Model
