@@ -18,7 +18,9 @@ namespace PatientProjectUI.Controllers
        
            public IActionResult EditPatient()
            {
-           
+
+
+
                return View();
 
            }  public IActionResult DeletePatient()
