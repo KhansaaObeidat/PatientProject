@@ -68,6 +68,7 @@ namespace PatientProject.Controllers
         [ValidateModel]
         public async Task<IActionResult> AddPatient(AddPatientDto addPatientDto)
         {
+
             var patientDmainModel = mapper.Map<Patient>(addPatientDto);
             /*var patientDmainModel = new Patient
             {

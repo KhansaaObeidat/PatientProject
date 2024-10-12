@@ -1,4 +1,6 @@
-﻿<div class="card">
+﻿
+
+<div class="card">
     <div class="card-header">
 
         <h2>Add Patient</h2>
@@ -6,7 +8,7 @@
     <div class="card-body">
         <div class="row">
             <div class="col-12">
-                <form id="postForm" action="https://localhost:7243/api/patient">
+                <form id="postForm" >
                  
                 <div>
                         <label>First Name</label>
@@ -22,8 +24,8 @@
                         <label>Gender</label>
                 <select id="gender">
     <option value="xx">--select gender--</option>
-    <option value="male">Male</option>
-    <option value="female">Female</option>
+    <option value="Male">Male</option>
+    <option value="Female">Female</option>
 </select>
 
                 </div> 
@@ -42,8 +44,8 @@
                         <input type="text" id="address" placeholder="Your Address" />
 
                 </div>
-                
-                <input type="submit"  />
+
+                    <button type="button" id="savePatient">Save</button>
                 </form>
 
             </div>
@@ -55,28 +57,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function () {
-        $('#patientForm').on('submit', function (e) {
+        $('#savePatient').on('click', function (e) {
             e.preventDefault();  // Prevent the form from submitting the traditional way
-
+            console.log("dsccc");
             // Gather form data
             var patientData = {
-                FirstName: $('#fname').val(),
-                LastName: $('#lname').val(),
-                Gender: $('#gender').val(),
-                DateOfBirth: $('#birthday').val(),
-                PhoneNumber: $('#phonenumber').val(),
-                Address: $('#address').val()
+                "FirstName": $('#fname').val(),
+                "LastName": $('#lname').val(),
+                "Gender": $('#gender').val(),
+                "DateOfBirth": $('#birthday').val(),
+                "PhoneNumber": $('#phonenumber').val(),
+                "Address": $('#address').val()
             };
 
             // AJAX POST request
             $.ajax({
-                url: 'https://localhost:7243/api/patient/AddPatient',  // Your API endpoint
+                url: 'https://localhost:7243/api/patient',  // Your API endpoint
                 method: 'POST',
                 contentType: 'application/json',  // Sending JSON data
                 data: JSON.stringify(patientData),  // Convert the form data to JSON string
                 success: function (response) {
                     // Handle success (response from the server)
                     console.log('Patient added successfully:', response);
+                    window.location.href = 'https://localhost:7285/patient';
+
                     alert('Patient added successfully!');
                 },
                 error: function (xhr, status, error) {

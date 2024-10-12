@@ -1,0 +1,109 @@
+﻿<div class="card">
+    <div class="card-header">
+
+        <h2>Add Patient</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <form id="EditForm">
+
+                    <div>
+                        <label>First Name</label>
+                        <input type="text" id="fname" placeholder="First Name" />
+
+                    </div>
+                    <div>
+                        <label>Last Name</label>
+                        <input type="text" id="lname" placeholder="Last Name" />
+
+                    </div>
+                    <div>
+                        <label>Gender</label>
+                        <select id="gender">
+                            <option value="xx">--select gender--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+
+                    </div>
+                    <div>
+                        <label>Date Of Birth</label>
+                        <input type="date" id="birthday" placeholder="Your BirthDay" />
+
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input type="text" id="phonenumber" placeholder="Your Phone Number" />
+
+                    </div>
+                    <div>
+                        <label>Address</label>
+                        <input type="text" id="address" placeholder="Your Address" />
+
+                    </div>
+
+                    <button type="submit" id="savePatient">Save</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function(id){
+        var patientId = '@Context.Request.RouteValues["id"]';
+        console.log(patientId)
+        $.ajax({
+            method: 'GET',
+            url: "https://localhost:7243/api/patient/" + patientId,
+
+
+        }).done(function (data) {
+            console.log(data);
+            $("#fname").val(data.firstName);
+            $("#lname").val(data.lastName);
+            $("#gender").val(data.gender);
+            $("#birthday").val(data.dateOfBirth);
+            $("#phonenumber").val(data.phoneNumber);
+            $("#address").val(data.address);
+
+        });
+        $("#EditForm").submit(function (e) {
+            e.preventDefault();
+            var editedPatient = {
+                firstName: $("#fname").val(),
+                lastName: $("#lname").val(),
+                gender: $("#gender").val(),
+                dateOfBirth: $("#birthday").val(),
+                phoneNumber: $("#phonenumber").val(),
+                address: $("#address").val()
+
+
+            }; $.ajax({
+                method: "PUT",
+                url: "https://localhost:7243/api/patient/" + patientId,
+                contentType: 'application/json',
+                data: JSON.stringify(editedPatient),
+                success:function (res) {
+                       alert("updated");
+                    window.location.href = 'https://localhost:7285/patient';
+
+                    },
+                failure: function (res) {
+                    alert("error:" )
+                }
+
+          
+
+            })
+
+        });
+       
+
+
+    })
+</script>

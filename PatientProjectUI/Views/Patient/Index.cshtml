@@ -7,6 +7,7 @@
         <div class="row">
             <div class="col-12">
                 <a asp-action="AddPatient" asp-controller="Patient" class="btn btn-primary">Add Patient </a>
+                
                 <table class="table table-bordered" id="dataTable">
                     <thead>
                         <tr>
@@ -17,6 +18,8 @@
                             <th>DateOfBirth</th>
                             <th>PhoneNumber</th>
                             <th>Address</th>
+                            <th>operation</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +52,13 @@
                 row += '<td>' + patient.dateOfBirth + '</td>';
                 row += '<td>' + patient.phoneNumber + '</td>';
                 row += '<td>' + patient.address + '</td>';
+                row += "<td><a href='/Patient/EditPatient/" + patient.id + "'>Edit</a><br>";
+
+                row += "<a href='' onclick='deletePatient(" + patient.id + ")'>Delete</a></td>";
+
+
                 row += "</tr>";
+         
             });
 
             // Append rows to the table body
@@ -58,8 +67,28 @@
         error: function (error) {
             console.error("Error fetching data:", error);  // Error handling
         }
+
     });
 
+   function  deletePatient(id){
+       if (confirm("Are you sure you want to delete this patient?")) {
+           $.ajax({
+               method: 'DELETE',
+               url: "https://localhost:7243/api/patient/" + id,
+               success: function (res) {
+
+                   alert("Delete successfully");
+                 window.location.href = 'https://localhost:7285/patient';
+
+               }
+
+           })
+       }
+      
+      
+     
+
+    }
     
 
 </script>

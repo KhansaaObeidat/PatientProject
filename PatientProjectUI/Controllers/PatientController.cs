@@ -3,6 +3,7 @@ using PatientProjectUI.Models.Dto;
 
 namespace PatientProjectUI.Controllers
 {
+    
     public class PatientController : Controller
     {
         public IActionResult Index()
@@ -12,11 +13,19 @@ namespace PatientProjectUI.Controllers
         public IActionResult AddPatient()
         {
             return View();
+
         }
-        [HttpPost]
-        public IActionResult AddPatient(AddPationtDto addPatient)
-        {
-            return View();
-        }
+       
+           public IActionResult EditPatient()
+           {
+           
+               return View();
+
+           }  public IActionResult DeletePatient()
+           {
+               return View();
+
+           }
+         
     }
 }
