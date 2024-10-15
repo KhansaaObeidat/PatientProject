@@ -1,6 +1,6 @@
 ﻿<div class="form-container">
     <h3> Edit Patient</h3>
-    <form id="postForm">
+    <form id="editForm">
 
         <div class="row g-3 align-items-center justify-content-center">
 
@@ -43,7 +43,7 @@
 
 
             <div class="col-md-12 d-flex justify-content-center">
-                <button class="btn btn-outline-primary mx-2 fontBtn mb-4 mt-5" type="button" id="savePatient">Save</button>
+                <button class="btn btn-outline-primary mx-2 fontBtn mb-4 mt-5" type="submit" id="savePatient">Save</button>
 
                 <a href="#" class="btn btn-outline-secondary mx-2 fontBtn mb-4 mt-5" id="cancel">Cancel</a>
             </div>
@@ -73,18 +73,19 @@
             $("#address").val(data.address);
 
         });
-        $("#EditForm").submit(function (e) {
+        $("#editForm").submit(function (e) {
             e.preventDefault();
             var editedPatient = {
-                firstName: $("#fname").val(),
-                lastName: $("#lname").val(),
-                gender: $("#gender").val(),
-                dateOfBirth: $("#birthday").val(),
-                phoneNumber: $("#phonenumber").val(),
-                address: $("#address").val()
+                "firstName": $("#fname").val(),
+                "lastName": $("#lname").val(),
+                "gender": $("#gender").val(),
+                "dateOfBirth": $("#birthday").val(),
+                "phoneNumber": $("#phonenumber").val(),
+                "address": $("#address").val()
 
 
-            }; $.ajax({
+            }; 
+            $.ajax({
                 method: "PUT",
                 url: "https://localhost:7243/api/patient/" + patientId,
                 contentType: 'application/json',
